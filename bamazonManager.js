@@ -108,4 +108,38 @@ function addInventory(prod, qty, currentQty) {
     });
 }
 
-function addNewProduct() {}
+function addNewProduct() {
+    inquirer.prompt([{
+        name: 'productName',
+        message: 'What is the product name?',
+        type: 'input'
+    }, {
+        name: 'department',
+        message: 'Which department?',
+        type: 'input'
+    }, {
+        name: 'price',
+        message: 'What is the unit price?',
+        type: 'input'
+    }, {
+        name: 'quantity',
+        message: 'What is the quantity?',
+        type: 'input'
+    }]).then(function (res) {
+        var prod = res.productName;
+        var dept = res.department;
+        var itemPrice = parseFloat(res.price);
+        var quant = parseInt(res.quantity);
+        insertProduct(prod, dept, itemPrice, quant);
+    });
+}
+
+function insertProduct(prod, dept, itemPrice, quant) {
+    connection.query('INSERT INTO products SET ?', {
+        product_name: prod,
+        department_name: dept,
+        price: itemPrice,
+        stock_quantity: quant
+    });
+    console.log('Item added!');
+}
