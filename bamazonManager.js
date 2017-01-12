@@ -1,5 +1,6 @@
 var mysql = require('mysql');
 var inquirer = require('inquirer');
+require('console.table');
 
 var connection = mysql.createConnection({
     host: 'localhost',
@@ -38,9 +39,7 @@ function selectActivity() {
 function viewProducts() {
     connection.query('SELECT * FROM products', function (err, res) {
         if (err) throw err;
-        res.forEach(function (elem) {
-            console.log(elem);
-        });
+        console.table(res);
         selectActivity();
     });
 }
@@ -51,9 +50,10 @@ function viewLow() {
         if (res.length < 1) {
             console.log('No low inventory');
         } else {
-            res.forEach(function (elem) {
-                console.log(elem);
-            });
+            console.table(res);
+            // res.forEach(function (elem) {
+            //     console.log(elem);
+            // });
         }
         selectActivity();
     });

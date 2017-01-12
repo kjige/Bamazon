@@ -11,8 +11,6 @@ CREATE TABLE products(
     PRIMARY KEY (item_id)
 );
 
-SELECT * FROM products;
-
 INSERT INTO products (item_id, product_name, department_name, price, stock_quantity)
 VALUES 
 (10, 'average table', 'furniture', 200.00, 20),
