@@ -19,39 +19,30 @@ Purchase items from the Bamazon inventory!
 
 ### Manager view
 #### Manager selects "View Products for Sale"
-<br>
 <img src="screenshots/Screen Shot 2.png" width="600px"/>
 
 #### Items displayed
-<br>
 <img src="screenshots/Screen Shot 3.png" width="600px"/>
 
 #### Manager selects "View Low Inventory"
-<br>
 <img src="screenshots/Screen Shot 4.png" width="600px"/>
 
 #### Products with low inventory displayed
-<br>
 <img src="screenshots/Screen Shot 5.png" width="600px"/>
 
 #### Manager selects "Add Inventory"
-<br>
 <img src="screenshots/Screen Shot 6.png" width="600px"/>
 
 #### Manager selects which product to add
-<br>
 <img src="screenshots/Screen Shot 7.png" width="600px"/>
 
 #### Manager inputs quantity to add
-<br>
 <img src="screenshots/Screen Shot 8.png" width="600px"/>
 
 #### Manager selects "Add New Product"
-<br>
 <img src="screenshots/Screen Shot 9.png" width="600px"/>
 
 #### Manager inputs product information
-<br>
 <img src="screenshots/Screen Shot 10.png" width="600px"/>
 
 ## Technologies used
