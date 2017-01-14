@@ -144,5 +144,9 @@ function insertProduct(prod, dept, itemPrice, quant) {
         stock_quantity: quant
     });
     console.log('Item added!');
+    connection.query('SELECT * FROM products', function (err, res) {
+        if (err) throw err;
+        console.table(res);
+    });
     selectActivity();
 }
