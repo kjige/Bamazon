@@ -147,6 +147,6 @@ function insertProduct(prod, dept, itemPrice, quant) {
     connection.query('SELECT * FROM products', function (err, res) {
         if (err) throw err;
         console.table(res);
+        selectActivity();
     });
-    selectActivity();
 }
