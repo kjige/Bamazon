@@ -15,7 +15,9 @@ Purchase items from the Bamazon inventory!
 
 ## Screenshots
 ### Customer view
-> <img src="screenshots/Screen Shot 1.png" width="600px"/>
+>
+<img src="screenshots/Screen Shot 1.png" width="600px"/>
+>
 
 ### Manager view
 #### Manager selects "View Products for Sale"
