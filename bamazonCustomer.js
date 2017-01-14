@@ -1,6 +1,8 @@
 var mysql = require('mysql');
 var inquirer = require('inquirer');
+require('console.table');
 
+// create connection to database
 var connection = mysql.createConnection({
     host: 'localhost',
     port: 3306,
@@ -9,6 +11,7 @@ var connection = mysql.createConnection({
     database: 'bamazon'
 });
 
+// ask user what product to purchase and quantity
 inquirer.prompt([{
     name: 'productID',
     message: 'what is the product ID?',
@@ -20,10 +23,21 @@ inquirer.prompt([{
 }]).then(function (resp) {
     var prodID = resp.productID;
     var qty = parseInt(resp.quantity);
-    // console.log(prodID + ' ' + qty);
+    displayProduct(prodID);
     checkItem(prodID, qty);
 });
 
+// display purchased item with updated stock quantity
+function displayProduct(prodID) {
+    connection.query('SELECT * FROM products WHERE ?', {
+        item_ID: prodID
+    }, function (err, res) {
+        if (err) throw err;
+        console.table(res);
+    });
+}
+
+// check database for stock quantity for specific product
 function checkItem(prodID, qty) {
     connection.query('SELECT stock_quantity FROM products WHERE ?', {
         item_ID: prodID
@@ -34,15 +48,18 @@ function checkItem(prodID, qty) {
     });
 }
 
+// check if there is enough stock quantity
 function checkStock(prodID, stockQty, qty) {
     if (stockQty > qty) {
-        // console.log('Stock available!' + stockQty + ' ' + qty);
+        console.log('Stock available!');
+
         updateDB(prodID, qty, stockQty);
     } else {
-        console.log('Insufficient quantity! ' + stockQty + ' ' + qty);
+        console.log('Insufficient quantity!');
     }
 }
 
+// update database with new stock quantity after purchase
 function updateDB(prodID, qty, stockQty) {
     var newStockQty = stockQty - qty;
     connection.query('UPDATE products SET ? WHERE ?', [{
@@ -51,11 +68,11 @@ function updateDB(prodID, qty, stockQty) {
         item_ID: prodID
     }], function (err, res) {
         if (err) throw err;
-        console.log('newStockQty ' + newStockQty);
         calcPrice(prodID, qty);
     });
 }
 
+// calculate and display purchase price
 function calcPrice(prodID, qty) {
     connection.query('SELECT price FROM products WHERE ?', {
         item_ID: prodID
@@ -63,7 +80,7 @@ function calcPrice(prodID, qty) {
         if (err) throw err;
         var price = res[0].price;
         var total = price * qty;
-        // console.log(res);
         console.log('Your total is $' + total + '!');
+        displayProduct(prodID);
     });
 }
