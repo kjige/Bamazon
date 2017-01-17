@@ -12,6 +12,7 @@ var connection = mysql.createConnection({
 
 selectActivity();
 
+// manager selects what activity to do
 function selectActivity() {
     inquirer.prompt([{
         name: 'options',
@@ -36,6 +37,7 @@ function selectActivity() {
     });
 }
 
+// views all products in a table
 function viewProducts() {
     connection.query('SELECT * FROM products', function (err, res) {
         if (err) throw err;
@@ -44,6 +46,7 @@ function viewProducts() {
     });
 }
 
+// view products that are low in stock quantity
 function viewLow() {
     connection.query('SELECT * FROM products WHERE stock_quantity <=4', function (err, res) {
         if (err) throw err;
@@ -51,14 +54,12 @@ function viewLow() {
             console.log('No low inventory');
         } else {
             console.table(res);
-            // res.forEach(function (elem) {
-            //     console.log(elem);
-            // });
         }
         selectActivity();
     });
 }
 
+// gets list of product names
 function getInventory() {
     connection.query('SELECT product_name FROM products', function (err, res) {
         if (err) throw err;
@@ -70,6 +71,7 @@ function getInventory() {
     });
 }
 
+// displays product list for manager to choose from and asks for quantity to add
 function listInventory(prodsArr) {
     inquirer.prompt([{
         name: 'product',
@@ -87,6 +89,7 @@ function listInventory(prodsArr) {
     });
 }
 
+// get the current quantity of selected product
 function getProdQty(prod, qty) {
     connection.query('SELECT stock_quantity FROM products WHERE ?', {
         product_name: prod
@@ -97,9 +100,9 @@ function getProdQty(prod, qty) {
     });
 }
 
+// add the additional quantity to current quantity
 function addInventory(prod, qty, currentQty) {
     var updateQty = qty + currentQty;
-    // console.log(prod, qty, currentQty, updateQty);
     connection.query('UPDATE products SET ? WHERE ?', [{
         stock_quantity: updateQty
     }, {
@@ -110,6 +113,7 @@ function addInventory(prod, qty, currentQty) {
     });
 }
 
+// asks manager for information about the new product
 function addNewProduct() {
     inquirer.prompt([{
         name: 'productName',
@@ -136,6 +140,7 @@ function addNewProduct() {
     });
 }
 
+// add new product to table
 function insertProduct(prod, dept, itemPrice, quant) {
     connection.query('INSERT INTO products SET ?', {
         product_name: prod,
